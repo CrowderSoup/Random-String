@@ -6,7 +6,7 @@
         $max = count($chars) - 1;
         $str = "";
     
-        for($i=0; $i<$length; $i++) {
+        while($length--) {
             shuffle($chars);
             $rand = mt_rand(0, $max);
             $str .= $chars[$rand];
