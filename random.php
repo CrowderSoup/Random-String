@@ -1,23 +1,18 @@
 <?php
-    function assign_rand_value($num)
+    function get_rand_str($length)
     {
-        $str_vault = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*";
-        return substr($str_vault, $num, 1);
-    }
+        $chars = array_merge(range('a','z'), range('A','Z'), array('!','@','#','$','%','&','*'));
+        $length = intval($length) > 0 ? intval($length) : 16;
+        $max = count($chars) - 1;
+        $str = "";
     
-    function get_rand_id($length)
-    {
-        $rand_id = "";
-        if($length > 0) {
-             
-            for($i = 1; $i <= $length; $i++) {
-                mt_srand((double)microtime() * 1000000);
-                $num = mt_rand(1, 69);
-                $rand_id .= assign_rand_value($num);
-            }
+        for($i=0; $i<$length; $i++) {
+            shuffle($chars);
+            $rand = mt_rand(0, $max);
+            $str .= $chars[$rand];
         }
-        return $rand_id;
+        return $str;
     }
     
-    echo (get_rand_id((($_GET != null) ? $_GET['len'] : 16 )));
+    echo (get_rand_str($_GET['len']));
 ?>
